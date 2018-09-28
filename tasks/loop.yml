@@ -1,0 +1,16 @@
+---
+
+
+- name: "Testing if {{ item }} is empty"
+  find:
+    paths: "{{ item }}"
+    patterns: '*'
+  register: foundfiles
+
+- name: "{{ item }} is not empty."
+    debug: "Skipping."
+  when: foundfiles.matched > 0
+
+- name: "Deploying Grav {{ item }}."
+    include_tasks: install.yml
+  when: foundfiles.matched = 0
