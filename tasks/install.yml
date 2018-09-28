@@ -7,7 +7,12 @@
     dest: /tmp
     remote_src: yes
 
-- name: Deploy Grav
+- name: Deploy Grav (1)
+  become: true
+  shell: "cp /tmp/grav-admin/webserver-configs/htaccess.txt {{ item }}/.htaccess"
+  when: grav_webserver == 'apache'
+
+- name: Deploy Grav (2)
   become: true
   shell: "mv /tmp/grav-admin/* {{ item }}"
 
@@ -20,8 +25,8 @@
 - name: Set file ownership
   become: true
   file:
-    path: "{{ item }}/*"
-    owner: www-data
-    group: www-data
+    path: "{{ item }}"
+    owner: "{{ grav_owner }}"
+    group: "{{ grav_group }}"
     recurse: yes
 

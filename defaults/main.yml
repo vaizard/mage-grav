@@ -2,6 +2,8 @@
 
 grav_version: 1.5.1
 grav_uri: https://github.com/getgrav/grav/releases/download/{{ grav_version }}/grav-admin-v{{ grav_version }}.zip
-grav_autoupdate: true
+grav_owner: www-data
+grav_group: www-data
+grav_webserver: apache
 grav_installs: []
 

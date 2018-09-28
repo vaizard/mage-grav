@@ -7,10 +7,8 @@
     patterns: '*'
   register: foundfiles
 
-- name: "{{ item }} is not empty."
-    debug: "Skipping."
+- include_tasks: update.yml
   when: foundfiles.matched > 0
 
-- name: "Deploying Grav {{ item }}."
-    include_tasks: install.yml
-  when: foundfiles.matched = 0
+- include_tasks: install.yml
+  when: foundfiles.matched == 0
