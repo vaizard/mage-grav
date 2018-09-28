@@ -1,0 +1,27 @@
+---
+
+- name: Download Grav
+  become: true
+  unarchive:
+    src: "{{ grav_uri }}"
+    dest: /tmp
+    remote_src: yes
+
+- name: Deploy Grav
+  become: true
+  shell: "mv /tmp/grav-admin/* {{ item }}"
+
+- name: Discard archive
+  become: true
+  file:
+    path: /tmp/grav-admin
+    state: absent
+
+- name: Set file ownership
+  become: true
+  file:
+    path: "{{ item }}/*"
+    owner: www-data
+    group: www-data
+    recurse: yes
+
