@@ -1,0 +1,5 @@
+---
+
+- name: "Install Grav into {{ item }}"
+    include_tasks: loop.yml
+  with_items: "{{ grav_installs }}"
